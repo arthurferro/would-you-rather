@@ -56,7 +56,7 @@ Se você deseja contribuir para o projeto, sinta-se à vontade para criar um for
 
 ## Contato
 
-- Autor: [Seu Nome](https://github.com/arthurferro)
+- Autor: [Arthur Ferro](https://github.com/arthurferro)
 
 ## Licença
 
