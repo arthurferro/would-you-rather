@@ -1,6 +1,7 @@
 # API "Would You Rather"
 
-#Frontend - ⛏️ 
+#Frontend - ⛏️
+
 #Backend - ✔️
 
 Bem-vindo ao repositório da API "Would You Rather"! Este é um projeto que implementa uma API para um jogo típico de "Would You Rather", onde os jogadores são apresentados com perguntas hipotéticas e devem escolher uma das opções apresentadas. A API foi desenvolvida usando .NET Core, Entity Framework e SQL Server.
