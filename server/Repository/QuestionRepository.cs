@@ -12,10 +12,7 @@ namespace server.Repository
     {
         private readonly QuestionContext _context;
 
-        public QuestionRepository(QuestionContext context)
-        {
-            _context = context;
-        }
+        public QuestionRepository(QuestionContext context) => _context = context;
 
         public void AddQuestion(Question question)
         {
@@ -26,8 +23,6 @@ namespace server.Repository
         {
             _context.Remove(question);
         }
-
-
 
         public async Task<Question> FindQuestion(int id)
         {
@@ -41,8 +36,7 @@ namespace server.Repository
 
         public async Task<Question> GetRandomQuestion()
         {
-            var randomQuestion = _context.Questions.FromSql<Question>($"SELECT TOP 1 * FROM [dbWouldYouRather].[dbo].[Questions] ORDER BY NEWID()");
-            return await randomQuestion.FirstOrDefaultAsync();
+            return await _context.Questions.FromSqlRaw($"SELECT * FROM questions ORDER BY RAND() LIMIT 1").FirstOrDefaultAsync();
         }
 
         public void updateQuestion(Question question)

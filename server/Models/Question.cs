@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace server.Models
 {
     public class Question
     {
+        [Key]
         public int Id { get; set; }
         public string FirstOption { get; set; }
         public string SecondOption { get; set; }

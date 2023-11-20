@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using server.Models;
@@ -17,10 +12,7 @@ namespace server.Controllers
     {
         private readonly IQuestionRepository _repository;
 
-        public QuestionController(IQuestionRepository repository)
-        {
-            _repository = repository;
-        }
+        public QuestionController(IQuestionRepository repository) => _repository = repository;
 
         [HttpGet]
         [Route("/GetQuestions")]
@@ -90,9 +82,7 @@ namespace server.Controllers
         {
             var questionDb = await _repository.FindQuestion(id);
             if (questionDb == null) return NotFound("Question not found.");
-
             _repository.DeleteQuestion(questionDb);
-
             return await _repository.SaveChangesAsync() ? Ok("Question deleted!") : BadRequest("Failed to delete question.");
         }
 
