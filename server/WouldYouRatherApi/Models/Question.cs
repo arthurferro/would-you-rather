@@ -15,8 +15,8 @@ namespace WouldYouRatherApi.Models
         public string? Id { get; set; }
         public string FirstQuestion { get; set; }
         public string SecondQuestion { get; set; }
-        public int FirstQuestionVotes { get; set; } = 0;
-        public int SecondQuestionVotes { get; set; } = 0;
+        public int FirstQuestionVotes { get; private set; } = 0;
+        public int SecondQuestionVotes { get; private set; } = 0;
         public int TotalVotes
         {
             get
@@ -26,10 +26,19 @@ namespace WouldYouRatherApi.Models
         }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public object CalculateVotes(){
+        public object CalculateVotes()
+        {
             var firstQuestionPercentage = Math.Round((double)(FirstQuestionVotes * 100 / TotalVotes));
             var secondQuestionPercentage = Math.Round((double)(SecondQuestionVotes * 100 / TotalVotes));
             return new { firstQuestionPercentage, secondQuestionPercentage };
+        }
+
+        public void AddVote(int option)
+        {
+            if (option == 1)
+                FirstQuestionVotes++;
+            else
+                SecondQuestionVotes++;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using WouldYouRatherApi.Models;
 
@@ -33,13 +34,13 @@ namespace WouldYouRatherApi.Services
         public async Task RemoveAsync(string id) =>
             await _questionCollections.DeleteOneAsync(x => x.Id == id);
 
-        public async Task<Question> GetRandomQuestion()
+        public async Task<Question> GetAsync()
         {
-            var question = await _questionCollections
-                .Find(_ => true)
-                .Limit(1)
-                .ToListAsync();
-            return question[0];
+            var pipeline = new BsonDocument[]{
+                new() {{"$sample", new BsonDocument{{"size", 1}}}},
+            };
+            var randomQUestion = await _questionCollections.Aggregate<Question>(pipeline).FirstOrDefaultAsync();
+            return randomQUestion;
         }
     }
 }

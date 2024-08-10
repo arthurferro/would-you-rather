@@ -6,6 +6,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+        });
+    }
+);
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<WouldYouRatherDatabaseSettings>(builder.Configuration.GetSection("WouldYouRatherDatabase"));
 builder.Services.AddSingleton<QuestionService>();
@@ -20,7 +33,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors();
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
